@@ -1,0 +1,286 @@
+/* Sass Расширения */
+%link_hover_effect {
+    position: relative;
+    width: fit-content;
+
+    &::after {
+        content: "";
+        display: block;
+        position: absolute;
+        height: 3px;
+        width: 0%;
+        transition: width .3s linear;
+        background-color: var(--dark-blue);
+        bottom: -5px;
+        border-radius: 10px;
+    }
+
+    &:hover {
+        &::after {
+            width: 100%;
+        }
+    }
+}
+
+
+/* Хедер */
+header {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    order: 0;
+    background-color: var(--white);
+    height: 93px;
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    left: 0;
+    z-index: 3;
+
+
+    @media (max-width: 500px) {
+        height: 60px;
+    }
+
+    /* Навигация */
+
+    nav {
+        display: flex;
+        padding: 10px 250px;
+        max-width: 100%;
+        gap: 20px;
+        color: var(--black);
+
+        @media (max-width: 1700px) {
+            padding: 0;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .logo {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+
+            h1 {
+                color: var(--black);
+            }
+
+            @media (max-width: 500px) {
+                width: 40px;
+                height: 40px;
+                font-size: 8px;
+                margin-right: 30px;
+            }
+        }
+
+        .navbar {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 60px;
+            max-width: 100%;
+
+            &_phone {
+                display: flex;
+                gap: 20px;
+                width: 100%;
+                white-space: nowrap;
+
+                @media (max-width: 1400px) {
+                    flex-direction: column;
+                }
+
+                @media (max-width: 1500px) {
+                    gap: 10px;
+                }
+            }
+
+            &__menu {
+                display: flex;
+                align-items: center;
+                gap: 25px;
+
+                @media (max-width: 1400px) {
+                    display: none;
+                }
+
+                li {
+                    cursor: pointer;
+                }
+            }
+
+            &__info {
+                display: flex;
+                align-items: center;
+                gap: 20px;
+                width: 100%;
+
+                @media (max-width: 1000px) {
+                    display: none;
+                }
+
+                .navbar_street {
+                    font-weight: 400;
+                    font-size: 1rem;
+                    font-style: normal;
+                }
+
+                .navbar_phoneNumber {
+                    font-weight: 700;
+                    font-size: 1.25rem;
+                    color: var(--black);
+                }
+
+                .navbar_offerCall {
+                    display: block;
+                    font-weight: 700;
+                    font-size: 1.25rem;
+                    cursor: pointer;
+                    color: var(--black);
+
+                    @extend %link_hover_effect;
+                }
+            }
+        }
+    }
+}
+
+// Адаптивное меню
+
+.navbar__adaptive_menu {
+
+    width: 47vw;
+    height: 100vh;
+    display: none;
+    transform: translateX(220%);
+    transition: transform .5s ease-in-out;
+    position: fixed;
+    background-color: #111111;
+    z-index: 4;
+    bottom: 0;
+    color: var(--white);
+    align-items: flex-end;
+    gap: 150px;
+    flex-direction: column;
+    font-size: clamp(30px, 3rem, 40px);
+    padding: 0;
+    margin: 0;
+    top: 0;
+    padding: 30px;
+
+    @media (max-width: 700px) {
+        gap: 60px;
+    }
+
+    @media (max-width: 500px) {
+        font-size: 2rem;
+        gap: 130px;
+    }
+
+    @media (max-width: 300px) {
+        font-size: 1.5rem;
+    }
+
+    &__info {
+        display: flex;
+        flex-direction: column;
+        text-align: center;
+        align-self: center;
+
+        @media (max-width: 700px) {
+            align-items: flex-end;
+            padding-right: 10px;
+            align-self: flex-end;
+        }
+
+        li {
+            @extend %link_hover_effect;
+            margin-top: 5px;
+
+            &::after {
+                background-color: var(--white);
+                box-shadow: 5px 5px 15px var(--white);
+            }
+        }
+    }
+
+    &__header {
+        display: flex;
+        align-items: baseline;
+        justify-content: space-between;
+        width: 100%;
+        margin-top: 10px;
+
+        .logo {
+            height: 100%;
+            align-items: flex-start;
+            justify-content: center;
+            margin-right: 0;
+        }
+    }
+
+    @media (max-width: 700px) {
+        width: 70vw;
+    }
+
+    &_cross {
+        cursor: pointer;
+    }
+
+    li {
+        cursor: pointer;
+    }
+
+    @media (max-width: 1400px) {
+        display: flex;
+    }
+
+    &Burger {
+        cursor: pointer;
+        display: none;
+
+        @media (max-width: 1400px) {
+            display: block;
+        }
+    }
+}
+
+.navbar__adaptive--active {
+    transform: translateX(114%);
+
+    @media (max-width: 700px) {
+        transform: translateX(45%);
+    }
+}
+
+// Текст для смартфонов "Заказать телефон"
+.navbar_offerCall-mobile {
+    display: none;
+    position: relative;
+}
+
+@media(max-width: 650px) {
+    .navbar_offerCall-mobile {
+        display: inline;
+        font-size: 16px;
+        font-weight: 700;
+        line-height: 19.5px;
+        text-align: left;
+        white-space: nowrap;
+    }
+
+    .navbar_offerCall-mobile::after {
+        content: "";
+        display: block;
+        position: absolute;
+        height: 3px;
+        width: 0%;
+        transition: width 0.3s linear;
+        background-color: var(--dark-blue);
+        bottom: -5px;
+        border-radius: 10px;
+        width: 100%;
+    }
+}

@@ -1,0 +1,153 @@
+/*Footer*/
+footer {
+    background: #EEEEEE;
+    width: 100%;
+    position: relative;
+    order: 11;
+    flex-shrink: 0;
+}
+
+.footer-container {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    position: relative;
+    padding: 60px 15%;
+    gap: 40px;
+}
+
+.footer-inner-container_main {
+    display: flex;
+    justify-content: stretch;
+}
+
+.footer-item {
+    flex: 1;
+}
+
+.footer-item .footer-list li {
+    color: black;
+    font-size: 20px;
+    font-weight: 400;
+    line-height: 24.38px;
+    text-align: left;
+}
+
+.footer-list {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}
+
+.footer-item_main {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}
+
+.footer-phone-container {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+a.footer-phone {
+    font-size: 20px;
+    font-weight: 400;
+    line-height: 24.38px;
+    text-align: left;
+    color: black;
+}
+
+.footer-contact-form {
+    font-size: 20px;
+    font-weight: 400;
+    line-height: 24.38px;
+    text-align: left;
+    color: black;
+    text-decoration: underline;
+}
+
+.footer-socials {
+    display: flex;
+    gap: 16px;
+}
+
+.footer-description {
+    white-space: wrap;
+    font-size: 12px;
+    font-weight: 400;
+    line-height: 15.6px;
+    text-align: left;
+    color: #3F3F3F;
+}
+
+#auto-find {
+    display: none;
+}
+
+.footer-logo {
+    display: flex;
+    justify-content: start;
+}
+
+@media(max-width: 650px) {
+    .footer-container {
+        padding: 30px 10px 30px 10px;
+    }
+
+    .footer-inner-container_main {
+        display: block;
+    }
+
+    .footer-list {
+        padding: 0;
+    }
+
+    .footer-list li {
+        white-space: pre-wrap;
+    }
+
+    .footer-item:nth-child(2),
+    .footer-item:nth-child(3) {
+        width: 50%;
+    }
+
+    .footer-item:nth-child(2) {
+        float: right;
+    }
+
+    .footer-item:last-child {
+        margin-top: 30px;
+    }
+
+    .footer-auto-find {
+        display: flex;
+    }
+
+    .footer-logo {
+        align-items: center;
+        display: flex;
+        width: 100%;
+        position: relative;
+        gap: 40px;
+        justify-content: space-between;
+    }
+
+    #auto-find {
+        display: flex;
+        width: 70%;
+        align-items: center;
+        border-bottom: 1px solid #dad9d9
+    }
+
+    #auto-find-value {
+        flex: 1;
+        color: #3F3F3F;
+        font-size: 16px;
+        font-weight: 400;
+        line-height: 20.8px;
+        text-align: left;
+        background-color: inherit;
+    }
+}

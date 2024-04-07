@@ -1,0 +1,63 @@
+/* Sass Расширения */
+%blue_button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 40px;
+    background: var(--dark-blue);
+    height: 48px;
+    color: #fff;
+    font-weight: 500;
+    font-size: 16px;
+}
+
+// Main Screen
+.main_screen {
+    width: 100vw;
+    height: 500px;
+    margin-top: 90px;
+
+    @media (max-width: 500px) {
+        height: 230px;
+    }
+
+    .main_img {
+        width: 100%;
+        max-height: 100%;
+        object-fit: cover;
+
+        @media (max-width: 500px) {
+            max-height: 74%;
+        }
+    }
+
+    .breadcrumbs {
+        font-weight: 400;
+        font-size: 16px;
+        line-height: 19.5px;
+        color: var(--dark-grey);
+        margin-top: 20px;
+        display: flex;
+        word-spacing: 10px;
+        max-width: 100%;
+        position: relative;
+        left: 13.5%;
+
+        @media (max-width: 500px) {
+            left: 3%;
+        }
+    }
+
+    &--caption {
+        font-weight: 700;
+        font-size: 48px;
+        line-height: 58px;
+        color: var(--black);
+        margin: 50px 0;
+
+        @media (max-width: 500px) {
+            margin: 10px 0;
+            font-size: 32px;
+        }
+    }
+}

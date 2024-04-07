@@ -1,0 +1,163 @@
+@font-face {
+    font-family: "VW Head";
+    src: url('./assets/fonts/VWHead.ttf');
+    src: url('./assets/fonts/VWHead.ttf') format('ttf'), url('./assets/fonts/VWHead.woff2') format('woff2'), url('./assets/fonts/VWHead.woff') format('woff');
+}
+
+:root {
+    /* Цвета */
+    --black: #0d0e0f;
+    --dark-grey: #3f3f3f;
+    --grey: #bcbcbc;
+    --light-grey: #eee;
+    --white: #fff;
+    --blue: #0099da;
+    --dark-blue: #0032a0;
+
+    /* Шрифты */
+    --font-family: "VW Head", sans-serif;
+    --second-family: "DM Sans", sans-serif;
+    --third-family: "Inter", sans-serif;
+    --font3: "Intro ", sans-serif;
+}
+
+html {
+    min-height: 100vh;
+    width: 100vw;
+    overflow-x: hidden;
+}
+
+body {
+    font-weight: 400;
+    font-size: 16px;
+    text-align: center;
+    color: var(--dark-grey);
+    min-height: 100vh;
+    width: 100%;
+    overflow-x: hidden;
+    margin: 0;
+    color: var(--white);
+    display: flex;
+    flex-direction: column;
+}
+
+* {
+    font-family: var(--font-family);
+    -webkit-box-sizing: border-box;
+    /* Safari/Chrome, other WebKit */
+    -moz-box-sizing: border-box;
+    /* Firefox */
+    box-sizing: border-box;
+}
+
+.blur {
+    filter: blur(3px);
+}
+
+li {
+    list-style-type: none;
+}
+
+li,
+p,
+address {
+    white-space: nowrap;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p {
+    margin: 0;
+}
+
+input {
+    border: none;
+}
+
+input:focus {
+    outline: none;
+}
+
+button {
+    cursor: pointer;
+    border: none;
+}
+
+a {
+    text-decoration: none;
+    color: var(--black);
+}
+
+select {
+    border: none;
+}
+
+select:focus-visible {
+    outline: none;
+}
+
+.main_btn * {
+    transition: 0.4s;
+}
+
+.main_btn {
+    transition: 0.4s;
+}
+
+.main_btn:hover * {
+    color: white;
+    stroke: white;
+}
+
+.main_btn.main_btn-path-fill:hover path {
+    fill: white;
+}
+
+.main_btn:hover {
+    background-color: var(--dark-blue) !important;
+    cursor: pointer;
+}
+
+.popup__background {
+    display: flex;
+    position: fixed;
+    min-width: 100vw;
+    min-height: 100vh;
+    background-color: #060637;
+    opacity: 0;
+    transition: all .3s linear;
+    z-index: -1;
+}
+
+.popup__background__active {
+    opacity: 0.6;
+    z-index: 3;
+}
+
+
+select {
+    appearance: none;
+    -webkit-appearance: none;
+}
+
+.custom-select {
+    position: relative;
+}
+
+.custom-select::after {
+    content: url(./assets/images/other/select_menu_arrow.png);
+    display: block;
+    width: 10%;
+    height: 10%;
+    position: absolute;
+    right: 0;
+    bottom: 25px;
+}
+
+main {
+    flex-grow: 1;
+}

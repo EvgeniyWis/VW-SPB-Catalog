@@ -1,0 +1,53 @@
+@charset "UTF-8";
+/* Sass Расширения */
+.main_screen {
+  width: 100vw;
+  height: 500px;
+  margin-top: 90px;
+}
+@media (max-width: 500px) {
+  .main_screen {
+    height: 230px;
+  }
+}
+.main_screen .main_img {
+  width: 100%;
+  max-height: 100%;
+  -o-object-fit: cover;
+     object-fit: cover;
+}
+@media (max-width: 500px) {
+  .main_screen .main_img {
+    max-height: 74%;
+  }
+}
+.main_screen .breadcrumbs {
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 19.5px;
+  color: var(--dark-grey);
+  margin-top: 20px;
+  display: flex;
+  word-spacing: 10px;
+  max-width: 100%;
+  position: relative;
+  left: 13.5%;
+}
+@media (max-width: 500px) {
+  .main_screen .breadcrumbs {
+    left: 3%;
+  }
+}
+.main_screen--caption {
+  font-weight: 700;
+  font-size: 48px;
+  line-height: 58px;
+  color: var(--black);
+  margin: 50px 0;
+}
+@media (max-width: 500px) {
+  .main_screen--caption {
+    margin: 10px 0;
+    font-size: 32px;
+  }
+}/*# sourceMappingURL=main_screen.css.map */
