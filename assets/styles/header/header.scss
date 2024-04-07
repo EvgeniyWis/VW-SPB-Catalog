@@ -108,6 +108,11 @@ header {
 
                 li {
                     cursor: pointer;
+                    transition: .2s ease-in color;
+
+                    &:hover {
+                        color: var(--dark-blue);
+                    }
                 }
             }
 
