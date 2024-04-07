@@ -14,8 +14,7 @@
 // Main Screen
 .main_screen {
     width: 100vw;
-    height: 500px;
-    margin-top: 90px;
+    margin-top: 130px;
 
     @media (max-width: 500px) {
         height: 230px;
@@ -53,11 +52,204 @@
         font-size: 48px;
         line-height: 58px;
         color: var(--black);
-        margin: 50px 0;
+        margin: 30px 0;
 
         @media (max-width: 500px) {
             margin: 10px 0;
             font-size: 32px;
+        }
+    }
+}
+
+/* Каталог */
+.catalog {
+    display: flex;
+    padding: 0px 250px;
+    height: 1800px;
+
+    .filters {
+        display: flex;
+        flex-direction: column;
+        height: 100%;
+        width: 17%;
+
+        &__checkbox {
+            display: flex;
+            flex-direction: column;
+            color: var(--black);
+            text-align: left;
+            border-bottom: 1px solid var(--light-grey);
+            padding-bottom: 20px;
+
+            &--caption {
+                font-weight: 400;
+                font-size: 24px;
+                line-height: 30px;
+            }
+
+            &_items {
+                display: inline-flex;
+                flex-direction: column;
+                justify-content: flex-start;
+                text-align: left;
+            }
+
+            &_item {
+                display: flex;
+                align-items: baseline;
+                gap: 15px;
+                max-height: 40px;
+
+                // Описание чекбокса
+                &--desc {
+                    display: flex;
+                    align-items: baseline;
+                    gap: 10px;
+                    position: relative;
+                    top: 5px;
+                }
+
+                &--name {
+                    font-weight: 400;
+                    font-size: 16px;
+                    line-height: 20px;
+                    color: var(--black);
+                }
+
+                &--count {
+                    color: var(--grey);
+                    font-weight: 400;
+                    font-size: 14px;
+                    line-height: 17px;
+                }
+            }
+
+            // Кастомный чекбокс
+            .filters__checkbox_input {
+                display: none;
+            }
+
+            .filters__checkbox_label {
+                color: var(--white);
+                cursor: pointer;
+                font-weight: normal;
+                line-height: 30px;
+                padding: 10px 0;
+                vertical-align: middle;
+
+                &:before {
+                    content: " ";
+                    color: #000;
+                    display: inline-flex;
+                    justify-content: center;
+                    align-items: center;
+                    position: relative;
+                    width: 24px;
+                    height: 24px;
+                    background: #FFF;
+                    border: 1px solid var(--grey);
+                }
+            }
+
+            .filters__checkbox_input:checked+.filters__checkbox_label:before {
+                content: url("../../icons/Accept.svg");
+                background: var(--dark-blue);
+                color: var(--white);
+            }
+
+        }
+    }
+}
+
+/* Стили для input range блока "Цена" */
+.irs--flat {
+    position: relative;
+    right: 7px;
+
+    .irs-bar {
+        background-color: var(--dark-blue);
+        height: 1px;
+        top: 29px;
+        // width: 95% !important;
+        // left: 5% !important;
+    }
+}
+
+.irs--flat .irs-handle>i:first-child {
+    background-color: var(--dark-blue);
+    width: 16px;
+    height: 16px;
+    border-radius: 10px;
+    border: solid 1px var(--white);
+    position: relative;
+
+    &:after {
+        content: "";
+        display: block;
+        width: 16px;
+        height: 16px;
+        background-color: transparent;
+        border: solid 1px var(--dark-blue);
+        border-radius: 10px;
+        position: absolute;
+        right: -2px;
+        top: -2px;
+    }
+}
+
+.irs--flat .irs-handle.state_hover>i:first-child,
+.irs--flat .irs-handle:hover>i:first-child {
+    background-color: var(--dark-blue);
+}
+
+.irs--flat .irs-line {
+    background-color: var(--white);
+}
+
+.irs--flat .irs-from,
+.irs--flat .irs-to,
+.irs--flat .irs-single {
+    display: none;
+}
+
+/* Блок "Цена" в фильтрах */
+.filters__range_slider {
+    display: flex;
+    flex-direction: column;
+    color: var(--black);
+    margin-top: 15px;
+
+    &--caption {
+        font-weight: 400;
+        font-size: 24px;
+        line-height: 30px;
+        text-align: left;
+    }
+
+    &_footer {
+        display: flex;
+        justify-content: space-between;
+        margin-top: 10px;
+    }
+
+    &_min,
+    &_max {
+        display: flex;
+        flex-direction: column;
+
+        &--text {
+            font-weight: 400;
+            font-size: 14px;
+            line-height: 17px;
+            color: var(--dark-grey);
+            text-align: left;
+        }
+
+        &--number {
+            font-weight: 400;
+            font-size: 14px;
+            line-height: 17px;
+            color: var(--grey);
         }
     }
 }

@@ -7,6 +7,7 @@
   <meta name="description" content='Страница контактов для веб сайта "VW-SPB"'>
   <meta name="keywords" content="html, css, js">
   <meta name="author" content="KrisWis, botya060606">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ion-rangeslider/2.3.1/css/ion.rangeSlider.min.css"/>
   <link rel="stylesheet" href="main.css">
   <link rel="stylesheet" href="assets/styles/header/header.css">
   <link rel="stylesheet" href="assets/styles/footer/footer.css">
@@ -60,7 +61,153 @@
         </nav>
       </header>
 
-      <main></main>
+      <ul class="navbar__adaptive_menu" id="navbar__adaptive_menu">
+        <div class="navbar__adaptive_menu__header">
+          <div class="logo">
+            <svg stroke="#fff" width="43" height="44" viewBox="0 0 43 44" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M21.5 41.522C10.793 41.522 2.021 32.707 2.021 22C2.021 19.592 2.451 17.313 3.268 15.163L14.663 38.082C14.792 38.383 15.007 38.641 15.351 38.641C15.695 38.641 15.91 38.383 16.039 38.082L21.285 26.343C21.328 26.214 21.414 26.085 21.543 26.085C21.672 26.085 21.715 26.214 21.801 26.343L27.047 38.082C27.176 38.383 27.391 38.641 27.735 38.641C28.079 38.641 28.294 38.383 28.423 38.082L39.818 15.163C40.635 17.313 41.065 19.592 41.065 22C40.979 32.707 32.207 41.522 21.5 41.522ZM21.5 17.571C21.371 17.571 21.328 17.442 21.242 17.313L15.136 3.553C17.114 2.822 19.264 2.435 21.5 2.435C23.736 2.435 25.886 2.822 27.864 3.553L21.758 17.313C21.672 17.485 21.629 17.571 21.5 17.571ZM15.265 31.718C15.136 31.718 15.093 31.589 15.007 31.46L5.117 11.508C6.88 8.799 9.245 6.52 12.126 4.929L19.264 20.796C19.35 21.054 19.565 21.14 19.78 21.14H23.22C23.478 21.14 23.65 21.097 23.779 20.796L30.917 4.929C33.755 6.52 36.163 8.799 37.926 11.508L27.95 31.46C27.907 31.589 27.821 31.718 27.692 31.718C27.563 31.718 27.52 31.589 27.434 31.46L23.693 22.946C23.564 22.645 23.392 22.602 23.134 22.602H19.694C19.436 22.602 19.264 22.645 19.135 22.946L15.523 31.46C15.48 31.589 15.394 31.718 15.265 31.718ZM21.5 43.5C33.411 43.5 43 33.911 43 22C43 10.089 33.411 0.5 21.5 0.5C9.589 0.5 0 10.089 0 22C0 33.911 9.589 43.5 21.5 43.5Z" fill="#00033D" />
+            </svg>
+          </div>
+          <svg id="navbar__adaptive_menu_cross" class="navbar__adaptive_menu_cross" width="40" height="40" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+            <line x1="0" y1="100" x2="100" y2="0" stroke-width="1" stroke="white"/>
+            <line x1="0" y1="0" x2="100" y2="100" stroke-width="1" stroke="white"/>
+          </svg>
+        </div>
+    
+        <div class="navbar__adaptive_menu__info">
+          <li>Каталог</li>
+          <li>Сервис</li>
+          <li>Услуги</li>
+          <li>Акции</li>
+          <li>О компании</li>
+          <li>Контакты</li>
+        </div>
+      </ul>
+
+      <main>
+        <section class="main_screen">
+            <div class="breadcrumbs">
+              <p class="breadcrumbs--text"><a>Главная</a> <span>></span> <a>Каталог</a></p>
+            </div>
+          </section>
+
+          <h1 class="main_screen--caption">Каталог</h1>
+
+          <section class="catalog">
+            <section class="filters">
+
+                <div class="filters__checkbox">
+                    <h3 class="filters__checkbox--caption">Модель</h3>
+
+                    <div class="filters__checkbox_items">
+                        <div class="filters__checkbox_item">
+                            <input class="filters__checkbox_input" type="checkbox" id="filters__checkbox_block" name="filters__checkbox_block" />
+                            <label class="filters__checkbox_label" for="filters__checkbox_block"></label>
+    
+                            <div class="filters__checkbox_item--desc">
+                                <label class="filters__checkbox_item--name" for="filters__checkbox_block">ID.4</label>
+                                <p class="filters__checkbox_item--count">16</p>
+                            </div>
+                        </div>
+    
+                        <div class="filters__checkbox_item">
+                            <input class="filters__checkbox_input" type="checkbox" id="filters__checkbox_block2" name="filters__checkbox_block2" />
+                            <label class="filters__checkbox_label" for="filters__checkbox_block2"></label>
+    
+                            <div class="filters__checkbox_item--desc">
+                                <label class="filters__checkbox_item--name" for="filters__checkbox_block">ID.4</label>
+                                <p class="filters__checkbox_item--count">16</p>
+                            </div>
+                        </div>
+    
+                        <div class="filters__checkbox_item">
+                            <input class="filters__checkbox_input" type="checkbox" id="filters__checkbox_block3" name="filters__checkbox_block3" />
+                            <label class="filters__checkbox_label" for="filters__checkbox_block3"></label>
+    
+                            <div class="filters__checkbox_item--desc">
+                                <label class="filters__checkbox_item--name" for="filters__checkbox_block">ID.4</label>
+                                <p class="filters__checkbox_item--count">16</p>
+                            </div>
+                        </div>
+    
+                        <div class="filters__checkbox_item">
+                            <input class="filters__checkbox_input" type="checkbox" id="filters__checkbox_block4" name="filters__checkbox_block4" />
+                            <label class="filters__checkbox_label" for="filters__checkbox_block4"></label>
+    
+                            <div class="filters__checkbox_item--desc">
+                                <label class="filters__checkbox_item--name" for="filters__checkbox_block">ID.4</label>
+                                <p class="filters__checkbox_item--count">16</p>
+                            </div>
+                        </div>
+    
+                        <div class="filters__checkbox_item">
+                            <input class="filters__checkbox_input" type="checkbox" id="filters__checkbox_block5" name="filters__checkbox_block5" />
+                            <label class="filters__checkbox_label" for="filters__checkbox_block5"></label>
+    
+                            <div class="filters__checkbox_item--desc">
+                                <label class="filters__checkbox_item--name" for="filters__checkbox_block">ID.4</label>
+                                <p class="filters__checkbox_item--count">16</p>
+                            </div>
+                        </div>
+    
+                        <div class="filters__checkbox_item">
+                            <input class="filters__checkbox_input" type="checkbox" id="filters__checkbox_block6" name="filters__checkbox_block6" />
+                            <label class="filters__checkbox_label" for="filters__checkbox_block6"></label>
+    
+                            <div class="filters__checkbox_item--desc">
+                                <label class="filters__checkbox_item--name" for="filters__checkbox_block">ID.4</label>
+                                <p class="filters__checkbox_item--count">16</p>
+                            </div>
+                        </div>
+    
+                        <div class="filters__checkbox_item">
+                            <input class="filters__checkbox_input" type="checkbox" id="filters__checkbox_block7" name="filters__checkbox_block7" />
+                            <label class="filters__checkbox_label" for="filters__checkbox_block7"></label>
+    
+                            <div class="filters__checkbox_item--desc">
+                                <label class="filters__checkbox_item--name" for="filters__checkbox_block">ID.4</label>
+                                <p class="filters__checkbox_item--count">16</p>
+                            </div>
+                        </div>
+    
+                        <div class="filters__checkbox_item">
+                            <input class="filters__checkbox_input" type="checkbox" id="filters__checkbox_block8" name="filters__checkbox_block8" />
+                            <label class="filters__checkbox_label" for="filters__checkbox_block8"></label>
+    
+                            <div class="filters__checkbox_item--desc">
+                                <label class="filters__checkbox_item--name" for="filters__checkbox_block">ID.4</label>
+                                <p class="filters__checkbox_item--count">16</p>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="filters__range_slider">
+                    <h3 class="filters__range_slider--caption">Цена</h3>
+
+                    <div class="filters__range_slider_block">
+                        <input type="text" class="filters__range_slider_input" name="my_range" value="" />
+                        
+                        <div class="filters__range_slider_footer">
+
+                            <div class="filters__range_slider_min">
+                                <span class="filters__range_slider_min--text">От</span>
+                                <span class="filters__range_slider_min--number">3 650 000</span>
+                            </div>
+
+                            <div class="filters__range_slider_max">
+                                <span class="filters__range_slider_max--text">До</span>
+                                <span class="filters__range_slider_max--number">6 745 000</span>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+            </section>
+          </section>
+      </main>
 
       <footer>
         <div class="footer-container">
@@ -140,6 +287,8 @@
         </div>
       </footer>
 
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/ion-rangeslider/2.3.1/js/ion.rangeSlider.min.js"></script>
   <script async src="assets/scripts/main.js"></script>
 </body>
 </html>
