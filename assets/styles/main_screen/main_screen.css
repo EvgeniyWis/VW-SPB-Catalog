@@ -56,6 +56,7 @@
   display: flex;
   padding: 0px 250px;
   height: 1800px;
+  width: 100%;
 }
 .catalog .filters {
   display: flex;
@@ -256,4 +257,70 @@
 }
 .filters__colors .filters__colors--item--active::after {
   display: block;
+}
+
+/* Каталог */
+.catalog_wrapper {
+  width: 100%;
+  /* Селект и выбранные фильтры */
+  /* Кастомный селект */
+  /* Выбранные фильтры */
+}
+.catalog_wrapper .catalog__header {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  height: 50px;
+}
+.catalog_wrapper select {
+  -moz-appearance: none;
+       appearance: none;
+  -webkit-appearance: none;
+  width: 165px;
+  height: 25px;
+}
+.catalog_wrapper .custom-select {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0px 1.5px 1.5px var(--grey);
+  position: relative;
+  background-color: var(--white);
+  width: 165px;
+  height: 25px;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 20px;
+  color: #000000;
+}
+.catalog_wrapper .custom-select::after {
+  content: url(../../icons/select_menu_arrow.svg);
+  display: block;
+  width: 10%;
+  height: 100%;
+  position: absolute;
+  left: 140px;
+}
+.catalog_wrapper .catalog__filters {
+  display: flex;
+  gap: 10px;
+}
+.catalog_wrapper .catalog__filters--item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background-color: var(--light-grey);
+  color: #000000;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 20px;
+  border-radius: 5px;
+  padding: 4px 6px 4px 6px;
+  height: 30px;
+}
+.catalog_wrapper .catalog__filters--item::before {
+  content: url(../../icons/cross.svg);
+  display: block;
+  width: 16px;
+  height: 16px;
 }/*# sourceMappingURL=main_screen.css.map */
