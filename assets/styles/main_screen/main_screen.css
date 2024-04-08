@@ -70,6 +70,7 @@
   text-align: left;
   border-bottom: 1px solid var(--light-grey);
   padding-bottom: 20px;
+  margin-top: 15px;
 }
 .catalog .filters__checkbox--caption {
   font-weight: 400;
@@ -85,15 +86,13 @@
 .catalog .filters__checkbox_item {
   display: flex;
   align-items: baseline;
-  gap: 15px;
+  gap: 10px;
   max-height: 40px;
 }
 .catalog .filters__checkbox_item--desc {
   display: flex;
   align-items: baseline;
   gap: 10px;
-  position: relative;
-  top: 5px;
 }
 .catalog .filters__checkbox_item--name {
   font-weight: 400;
@@ -129,6 +128,8 @@
   height: 24px;
   background: #FFF;
   border: 1px solid var(--grey);
+  line-height: 30px;
+  vertical-align: middle;
 }
 .catalog .filters__checkbox .filters__checkbox_input:checked + .filters__checkbox_label:before {
   content: url("../../icons/Accept.svg");
@@ -165,7 +166,7 @@
   border-radius: 10px;
   position: absolute;
   right: -2px;
-  top: -2px;
+  top: -1.5px;
 }
 
 .irs--flat .irs-handle.state_hover > i:first-child,
@@ -191,6 +192,8 @@
   flex-direction: column;
   color: var(--black);
   margin-top: 15px;
+  border-bottom: 1px solid var(--light-grey);
+  padding-bottom: 20px;
 }
 .filters__range_slider--caption {
   font-weight: 400;
@@ -219,4 +222,38 @@
   font-size: 14px;
   line-height: 17px;
   color: var(--grey);
+}
+
+.filters__colors {
+  display: flex;
+  flex-direction: column;
+  color: var(--black);
+  margin-top: 15px;
+}
+.filters__colors--caption {
+  font-weight: 400;
+  font-size: 24px;
+  line-height: 30px;
+  text-align: left;
+}
+.filters__colors__wrapper {
+  display: flex;
+  gap: 10px;
+  height: 24px;
+  margin-top: 10px;
+}
+.filters__colors--item {
+  height: 100%;
+  width: 24px;
+  background-color: #E30303;
+  border-radius: 3px;
+  border: 1px solid var(--grey);
+  cursor: pointer;
+}
+.filters__colors--item::after {
+  content: url("../../icons/Accept.svg");
+  display: none;
+}
+.filters__colors .filters__colors--item--active::after {
+  display: block;
 }/*# sourceMappingURL=main_screen.css.map */

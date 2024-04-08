@@ -35,3 +35,12 @@ document.addEventListener("DOMContentLoaded", () => {
         filters__range_slider_max__number.textContent = irs_to.textContent;
     });
 });
+
+/* Функционал нажатия на цвета в блоке "Цвет" */
+const filters__colors__items = document.querySelectorAll(".filters__colors--item");
+
+for (let item of filters__colors__items) {
+    item.addEventListener("click", () => {
+        item.classList.toggle("filters__colors--item--active");
+    })
+}
