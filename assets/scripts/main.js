@@ -10,6 +10,8 @@ const catalog_wrapper = document.getElementById("catalog_wrapper");
 const filters__header__close = document.getElementById("filters__header__close");
 const filters__header__delete = document.getElementById("filters__header__delete");
 const filters__show_items = document.getElementById("filters__show_items");
+const filters__checkbox_inputs = document.querySelectorAll(".filters__checkbox_input");
+
 
 /* Открытие и закрытие бургер меню */
 navbar__adaptive_menuBurger.addEventListener("click", () => {
@@ -90,3 +92,46 @@ filters__show_items.addEventListener("click", () => {
     filters__show_items.classList.add("hidden");
     catalog_wrapper.classList.remove("hidden");
 })
+
+
+/* Если в адресной строке есть параметры, то фильтры расставляются в зависимости от значений параметров */
+for (let filter of filters__checkbox_inputs) {
+    const parameter = filter.parentNode.parentNode.parentNode.id.split("--")[1];
+    const parameter_value = encodeURIComponent(filter.getAttribute("value"));
+    const parameter_url = `${parameter}=${parameter_value}`.replace(/ /g, "%20");
+    let url = window.location.href;
+
+    if (url.indexOf(parameter_url) >= 0) {
+        filter.click();
+    }
+};
+
+/* События для определения того, что юзер нажал на инпут с фильтром */
+for (let filter of filters__checkbox_inputs) {
+    filter.addEventListener("change", () => {
+        const parameter = filter.parentNode.parentNode.parentNode.id.split("--")[1];
+        const parameter_value = encodeURIComponent(filter.getAttribute("value"));
+        const parameter_url = `${parameter}=${parameter_value}`.replace(/ /g, "%20");
+
+        let url = window.location.href;
+
+        if (url.indexOf(parameter_url) >= 0) {
+            url = url.replace(`&${parameter_url}`, "");
+            url = url.replace(`?${parameter_url}`, "");
+            url = url.split("/")[url.split("/").length - 1]
+
+            if (url[0] == "&") {
+                url = "?" + url;
+            }
+
+        } else {
+            if (url.indexOf('?') > -1) {
+                url += `&${parameter_url}`
+            } else {
+                url += `?${parameter_url}`
+            }
+        }
+
+        window.location.href = url;
+    })
+};
