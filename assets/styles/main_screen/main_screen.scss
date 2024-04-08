@@ -67,12 +67,13 @@
     padding: 0px 250px;
     height: 1800px;
     width: 100%;
+    margin-top: 50px;
 
     .filters {
         display: flex;
         flex-direction: column;
         height: 100%;
-        width: 25%;
+        width: 35%;
 
         &__checkbox {
             display: flex;
@@ -82,6 +83,10 @@
             border-bottom: 1px solid var(--light-grey);
             padding-bottom: 20px;
             margin-top: 15px;
+
+            &:first-of-type {
+                margin-top: 0;
+            }
 
             &--caption {
                 font-weight: 400;
@@ -304,7 +309,7 @@
 
 /* Каталог */
 .catalog_wrapper {
-
+    margin-left: 30px;
     width: 100%;
 
     /* Селект и выбранные фильтры */
@@ -351,6 +356,7 @@
     .catalog__filters {
         display: flex;
         gap: 10px;
+        margin-left: 10px;
 
         &--item {
             display: flex;
@@ -370,6 +376,153 @@
                 display: block;
                 width: 16px;
                 height: 16px;
+                cursor: pointer;
+            }
+        }
+    }
+}
+
+/* Предметы каталога */
+.catalog__items {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    margin-top: 15px;
+    gap: 20px;
+
+    .catalog__item {
+        height: 507px;
+        width: 100%;
+        transition: background-color .2s linear;
+        background-color: var(--white);
+        cursor: pointer;
+
+        &--image_wrapper {
+            height: 240px;
+            width: 100%;
+            position: relative;
+        }
+
+        &--NDS {
+            width: 0;
+            height: 0;
+            border-left: 65px solid transparent;
+            border-bottom: 65px solid #00b1f5;
+            color: var(--white);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            position: absolute;
+            bottom: 0;
+            right: 0;
+
+            &--text {
+                position: relative;
+                top: 45px;
+                right: 15px;
+                color: var(--white);
+                text-transform: uppercase;
+                font-weight: 100;
+                font-size: 12px;
+            }
+        }
+
+        &--guarantee {
+            display: flex;
+            position: absolute;
+            bottom: 3px;
+            left: 10px;
+            background-color: #00b1f5;
+
+            &--text {
+                text-align: center;
+                padding: 3px 20px;
+                color: var(--white);
+            }
+        }
+
+        &:hover {
+            background-color: var(--light-grey);
+        }
+
+        &--image {
+            height: 100%;
+            width: 100%;
+            object-fit: cover;
+            object-position: center center;
+        }
+
+        &__footer {
+            height: 507px;
+            width: 100%;
+            padding: 0 16px 16px 16px;
+            gap: 16px;
+            color: #000000;
+            margin-top: 10px;
+        }
+
+        &--caption {
+            font-weight: 400;
+            font-size: 20px;
+            line-height: 24px;
+            text-align: left;
+        }
+
+        &__filters {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            margin-top: 15px;
+        }
+
+        &__filter {
+            display: flex;
+            font-weight: 400;
+            font-size: 14px;
+            line-height: 17px;
+            gap: 8px;
+        }
+
+        &--price {
+            display: flex;
+            gap: 12px;
+            margin-top: 20px;
+            align-items: center;
+        }
+
+        &--active_price {
+            color: #000000;
+            font-weight: 400;
+            font-size: 20px;
+            line-height: 24px;
+        }
+
+        &--past_price {
+            font-weight: 400;
+            font-size: 14px;
+            line-height: 17px;
+            color: var(--grey);
+            text-decoration: line-through;
+        }
+
+        &--get_offer {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border-radius: 10px;
+            height: 35px;
+            width: 188px;
+            padding: 8px, 15px, 10px, 15px;
+            background-color: #0032A0;
+            color: var(--white);
+            font-weight: 700;
+            font-size: 14px;
+            line-height: 17px;
+            margin-top: 15px;
+            transition: background-color .2s linear;
+
+            &:hover {
+                background-color: var(--blue);
             }
         }
     }

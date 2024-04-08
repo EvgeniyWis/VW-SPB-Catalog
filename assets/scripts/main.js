@@ -23,7 +23,8 @@ $(".filters__range_slider_input").ionRangeSlider({
     max: 6745000,
 });
 
-document.addEventListener("DOMContentLoaded", () => {
+/* Функционал изменения текста в фильтрах в блоке "Цена" */
+function priceChange() {
     const irs_from = document.querySelector(".irs-from");
     const irs_to = document.querySelector(".irs-to");
 
@@ -34,7 +35,15 @@ document.addEventListener("DOMContentLoaded", () => {
     irs_to.addEventListener('DOMSubtreeModified', function () {
         filters__range_slider_max__number.textContent = irs_to.textContent;
     });
-});
+}
+if (document.readyState !== 'loading') {
+    priceChange()
+} else {
+    document.addEventListener("DOMContentLoaded", () => {
+        priceChange()
+    })
+}
+
 
 /* Функционал нажатия на цвета в блоке "Цвет" */
 const filters__colors__items = document.querySelectorAll(".filters__colors--item");
