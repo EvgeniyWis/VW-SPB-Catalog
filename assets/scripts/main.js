@@ -12,9 +12,12 @@ const filters__header__delete = document.getElementById("filters__header__delete
 const filters__show_items = document.getElementById("filters__show_items");
 const filters__checkbox_inputs = document.querySelectorAll(".filters__checkbox_input");
 const filters__colors__items = document.querySelectorAll(".filters__colors--item");
+const catalog__filters = document.getElementById("catalog__filters");
+const catalog__filters__sort = document.getElementById("catalog__filters__sort");
 let irs_from;
 let irs_to;
 filters__show_items.href = window.location.href;
+filters__header__delete.href = window.location.href;
 
 
 /* Открытие и закрытие бургер меню */
@@ -131,6 +134,7 @@ filters__show_items.addEventListener("click", () => {
 
 
 /* Если в адресной строке есть параметры, то фильтры расставляются в зависимости от значений параметров */
+let filters_parameters = [];
 for (let filter of filters__checkbox_inputs) {
     const parameter = filter.parentNode.parentNode.parentNode.id.split("--")[1];
     // const parameter_value = encodeURIComponent(filter.getAttribute("value"));
@@ -172,87 +176,171 @@ for (let filter of filters__checkbox_inputs) {
                 }
             }
         }
+    }
 
+    // Для цены
+    search_url = new URL(url);
+    if (search_url.searchParams.has("cost")) {
+        prices = search_url.searchParams.get("cost").split(",");
+        filters__range_slider_min__number.textContent = prices[0];
+        filters__range_slider_max__number.textContent = prices[1];
 
-        // Для цены
-        search_url = new URL(url);
-        if (search_url.searchParams.has("cost")) {
-            prices = search_url.searchParams.get("cost").split(",");
-            filters__range_slider_min__number.textContent = prices[0];
-            filters__range_slider_max__number.textContent = prices[1];
+        /* Функционал слайдера в блоке "Цена" */
+        $(".filters__range_slider_input").ionRangeSlider({
+            type: "double",
+            min: 3650000,
+            max: 6745000,
+            from: filters__range_slider_min__number.textContent,
+            to: filters__range_slider_max__number.textContent
+        });
 
-            /* Функционал слайдера в блоке "Цена" */
-            $(".filters__range_slider_input").ionRangeSlider({
-                type: "double",
-                min: 3650000,
-                max: 6745000,
-                from: filters__range_slider_min__number.textContent,
-                to: filters__range_slider_max__number.textContent
-            });
+    } else {
+        $(".filters__range_slider_input").ionRangeSlider({
+            type: "double",
+            min: 3650000,
+            max: 6745000
+        });
+    }
 
-        } else {
-            $(".filters__range_slider_input").ionRangeSlider({
-                type: "double",
-                min: 3650000,
-                max: 6745000
-            });
-        }
+    /* Функционал изменения текста в фильтрах в блоке "Цена" */
+    function UrlPriceChange(parameter_value_price_from, parameter_value_price_to) {
 
-        /* Функционал изменения текста в фильтрах в блоке "Цена" */
-        function UrlPriceChange(parameter_value_price_from, parameter_value_price_to) {
+        const parameter_url = `cost=${parameter_value_price_from},${parameter_value_price_to}`;
 
-            const parameter_url = `cost=${parameter_value_price_from},${parameter_value_price_to}`;
+        let url = filters__show_items.href;
 
-            let url = filters__show_items.href;
-
-            if (url.indexOf("cost") >= 0) {
-                url = url.replace(/(cost=)[^&]*/, parameter_url);
-                filters__show_items.href = url;
-                return
-            }
-
-            if (url.indexOf('?') !== -1) {
-                // Если есть, добавляем новый параметр через "&"
-                url += '&' + parameter_url;
-            } else {
-                // Если нет, добавляем новый параметр через "?"
-                url += '?' + parameter_url;
-            }
-
-
+        if (url.indexOf("cost") >= 0) {
+            url = url.replace(/(cost=)[^&]*/, parameter_url);
             filters__show_items.href = url;
+            return
         }
 
-        function priceChange() {
-
-            irs_from = document.querySelector(".irs-from");
-            irs_to = document.querySelector(".irs-to");
-
-            irs_from.addEventListener('DOMSubtreeModified', function () {
-                filters__range_slider_min__number.textContent = irs_from.textContent;
-                parameter_value_price_to = parseInt(irs_to.textContent.replace(/\s/g, ''), 10);
-                parameter_value_price_from = parseInt(irs_from.textContent.replace(/\s/g, ''), 10);
-                UrlPriceChange(parameter_value_price_from, parameter_value_price_to);
-            });
-
-            irs_to.addEventListener('DOMSubtreeModified', function () {
-                filters__range_slider_max__number.textContent = irs_to.textContent;
-                parameter_value_price_to = parseInt(irs_to.textContent.replace(/\s/g, ''), 10);
-                parameter_value_price_from = parseInt(irs_from.textContent.replace(/\s/g, ''), 10);
-                UrlPriceChange(parameter_value_price_from, parameter_value_price_to);
-            });
-        }
-
-        if (document.readyState !== 'loading') {
-            priceChange()
+        if (url.indexOf('?') !== -1) {
+            // Если есть, добавляем новый параметр через "&"
+            url += '&' + parameter_url;
         } else {
-            document.addEventListener("DOMContentLoaded", () => {
-                priceChange()
-            })
+            // Если нет, добавляем новый параметр через "?"
+            url += '?' + parameter_url;
+        }
+
+
+        filters__show_items.href = url;
+    }
+
+    function priceChange() {
+
+        irs_from = document.querySelector(".irs-from");
+        irs_to = document.querySelector(".irs-to");
+
+        irs_from.addEventListener('DOMSubtreeModified', function () {
+            filters__range_slider_min__number.textContent = irs_from.textContent;
+            parameter_value_price_to = parseInt(irs_to.textContent.replace(/\s/g, ''), 10);
+            parameter_value_price_from = parseInt(irs_from.textContent.replace(/\s/g, ''), 10);
+            UrlPriceChange(parameter_value_price_from, parameter_value_price_to);
+        });
+
+        irs_to.addEventListener('DOMSubtreeModified', function () {
+            filters__range_slider_max__number.textContent = irs_to.textContent;
+            parameter_value_price_to = parseInt(irs_to.textContent.replace(/\s/g, ''), 10);
+            parameter_value_price_from = parseInt(irs_from.textContent.replace(/\s/g, ''), 10);
+            UrlPriceChange(parameter_value_price_from, parameter_value_price_to);
+        });
+    }
+
+    if (document.readyState !== 'loading') {
+        priceChange()
+    } else {
+        document.addEventListener("DOMContentLoaded", () => {
+            priceChange()
+        })
+    }
+
+    /* Загрузка данных из адресной строки в фильтры над каталог */
+    let search_url_for_filters = new URL(filters__show_items.href);
+
+    filters_items = search_url_for_filters.searchParams.get(parameter);
+
+    if (filters_items) {
+        for (let item of filters_items.split(",")) {
+            if (!filters_parameters.includes(item)) {
+                filters_parameters.push(item);
+                html_item = `
+                <div class="catalog__filters--item">
+                    <svg class="catalog__filters--item-cross" width="14" height="13" viewBox="0 0 14 13" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M12.6334 0.637262L1.31971 11.951M1.31971 0.637262L12.6334 11.951" stroke="black" stroke-linecap="round"/>
+                    </svg>
+                    <span class="catalog__filters--item">${item}</span>
+                </div>`;
+                catalog__filters.insertAdjacentHTML(`beforeend`, html_item);
+
+                /* Удаление фильтров */
+                const filters__crosses = document.querySelectorAll(".catalog__filters--item-cross");
+                for (let cross of filters__crosses) {
+                    cross.addEventListener("click", () => {
+                        if (cross.parentNode.parentNode == catalog__filters) {
+                            url = filters__show_items.href;
+                            catalog__filters.removeChild(cross.parentNode);
+                            item = encodeURIComponent(item).replace(/%20/g, "+");
+                            url = url.replace(new RegExp("[,&]" + item, "g"), "").replace(item + ",", "").replace(item, "");
+
+                            search_url = new URL(url);
+
+                            if (search_url.searchParams.has(parameter) && !search_url.searchParams.get(parameter).replace(/[^\w\s\']|_/g, "").replace(/\s+/g, " ")) {
+                                search_url.searchParams.delete(parameter);
+                            }
+
+                            filters__show_items.href = search_url.href;
+                        }
+                    })
+                }
+            }
         }
     }
 };
 
+/* Загрузка данных из адресной строки в фильтры над каталог (цвет) */
+for (let item of filters__colors__items) {
+
+    let search_url_for_filters = new URL(filters__show_items.href);
+    parameter = "color";
+    filters_items = search_url_for_filters.searchParams.get(parameter);
+
+    if (filters_items) {
+        for (let item of filters_items.split(",")) {
+            if (!filters_parameters.includes(item)) {
+                let url = filters__show_items.href;
+                filters_parameters.push(item);
+                html_item = `
+                    <div class="catalog__filters--item">
+                        <svg class="catalog__filters--item-cross" width="14" height="13" viewBox="0 0 14 13" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M12.6334 0.637262L1.31971 11.951M1.31971 0.637262L12.6334 11.951" stroke="black" stroke-linecap="round"/>
+                        </svg>
+                        <span class="catalog__filters--item">${item}</span>
+                    </div>`;
+                catalog__filters.insertAdjacentHTML(`beforeend`, html_item);
+
+                /* Удаление фильтров */
+                const filters__crosses = document.querySelectorAll(".catalog__filters--item-cross");
+                for (let cross of filters__crosses) {
+                    cross.addEventListener("click", () => {
+                        if (cross.parentNode.parentNode == catalog__filters) {
+                            catalog__filters.removeChild(cross.parentNode);
+                            item = encodeURIComponent(item)
+                            url = url.replace(new RegExp("[,&]" + item, "g"), "").replace(item + ",", "").replace(item, "");
+
+                            search_url = new URL(url);
+
+                            if (search_url.searchParams.has(parameter) && !search_url.searchParams.get(parameter).replace(/[^\w\s\']|_/g, "").replace(/\s+/g, " ")) {
+                                search_url.searchParams.delete(parameter);
+                            }
+                            filters__show_items.href = search_url.href;
+                        }
+                    })
+                }
+            }
+        }
+    }
+}
 let url = filters__show_items.href;
 
 // Для цвета (если в адресной строке есть значения)
@@ -300,20 +388,20 @@ if (queryString) {
 for (let filter of filters__checkbox_inputs) {
     filter.addEventListener("change", () => {
         const parameter = filter.parentNode.parentNode.parentNode.id.split("--")[1];
-        const parameter_value = encodeURIComponent(filter.getAttribute("value"));
+        let parameter_value = encodeURIComponent(filter.getAttribute("value"));
         const parameter_url = `${parameter}=${parameter_value}`.replace(/ /g, "%20");
 
         let url = filters__show_items.href;
 
         if (url.indexOf(parameter_value) >= 0) {
             url = url.replace(new RegExp("[,&]" + parameter_value, "g"), "").replace(parameter_value + ",", "").replace(parameter_value, "");
-
+            parameter_value = encodeURIComponent(parameter_value)
             search_url = new URL(url);
 
             if (search_url.searchParams.has(parameter) && !search_url.searchParams.get(parameter).replace(/[^\w\s\']|_/g, "").replace(/\s+/g, " ")) {
                 search_url.searchParams.delete(parameter);
             }
-            filters__show_items.href = search_url;
+            filters__show_items.href = search_url.href;
             return
 
         } else {
@@ -367,14 +455,14 @@ for (let item of filters__colors__items) {
     item.addEventListener("click", () => {
         item.classList.toggle("filters__colors--item--active");
         const parameter = "color";
-        const parameter_value = item.getAttribute("data-color");
+        let parameter_value = item.getAttribute("data-color");
         const parameter_url = `${parameter}=${parameter_value}`.replace(/ /g, "%20");
 
         let url = filters__show_items.href;
 
         if (url.indexOf(parameter_value) >= 0) {
             url = url.replace(new RegExp("[,&]" + parameter_value, "g"), "").replace(parameter_value + ",", "").replace(parameter_value, "");
-
+            parameter_value = encodeURIComponent(parameter_value)
             search_url = new URL(url);
 
             if (search_url.searchParams.has(parameter) && !search_url.searchParams.get(parameter).replace(/[^\w\s\']|_/g, "").replace(/\s+/g, " ")) {

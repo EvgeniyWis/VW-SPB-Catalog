@@ -482,9 +482,9 @@
             border-radius: 5px;
             padding: 4px 6px 4px 6px;
             height: 30px;
+            white-space: nowrap;
 
-            &::before {
-                content: url(../../icons/cross.svg);
+            &-cross {
                 display: block;
                 width: 16px;
                 height: 16px;
