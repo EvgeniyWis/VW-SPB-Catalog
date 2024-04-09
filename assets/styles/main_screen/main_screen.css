@@ -55,7 +55,6 @@
 .catalog {
   display: flex;
   padding: 0px 250px;
-  min-height: 1800px;
   width: 100%;
   margin-top: 50px;
 }
@@ -88,22 +87,6 @@
   flex-direction: column;
   height: 100%;
   width: 35%;
-}
-.catalog .filters__show_items {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 8px 10px 10px 10px;
-  border-radius: 10px;
-  width: 100%;
-  height: 33px;
-  font-weight: 700;
-  font-size: 12px;
-  line-height: 15px;
-  cursor: pointer;
-  background-color: #0032A0;
-  color: var(--white);
-  margin-top: 30px;
 }
 .catalog .filters__header {
   display: none;
@@ -234,6 +217,24 @@
   content: url("../../icons/Accept.svg");
   background: var(--dark-blue);
   color: var(--white);
+}
+
+/* Стили для кнопки "Показать товары" */
+.filters__show_items {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 8px 10px 10px 10px;
+  border-radius: 10px;
+  width: 340px;
+  height: 33px;
+  font-weight: 700;
+  font-size: 12px;
+  line-height: 15px;
+  cursor: pointer;
+  background-color: #0032A0;
+  color: var(--white);
+  margin: 100px auto;
 }
 
 /* Стили для input range блока "Цена" */

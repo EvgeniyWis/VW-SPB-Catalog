@@ -102,7 +102,7 @@
                 <a class="filters__header--delete" id="filters__header__delete">Сбросить</a>
               </div>
 
-                <div class="filters__checkbox" id="filters__checkbox--model">
+                <div class="filters__checkbox" data-filter="model" id="filters__checkbox--model">
                     <h3 class="filters__checkbox--caption">Модель</h3>
 
                     <div class="filters__checkbox_items filters__checkbox_items--model">
@@ -191,7 +191,7 @@
 
                 </div>
 
-                <div class="filters__range_slider" id="filters__checkbox--price">
+                <div class="filters__range_slider" data-filter="price" id="filters__checkbox--price">
                     <h3 class="filters__range_slider--caption">Цена</h3>
 
                     <div class="filters__range_slider_block">
@@ -213,7 +213,7 @@
 
                 </div>
 
-                <div class="filters__checkbox" id="filters__checkbox--equipment">
+                <div class="filters__checkbox" data-filter="equipment" id="filters__checkbox--equipment">
                   <h3 class="filters__checkbox--caption">Комплектация</h3>
 
                   <div class="filters__checkbox_items">
@@ -291,7 +291,7 @@
 
                 </div>
 
-                <div class="filters__checkbox" id="filters__checkbox--year">
+                <div class="filters__checkbox" data-filter="year" id="filters__checkbox--year">
                   <h3 class="filters__checkbox--caption">Год</h3>
 
                   <div class="filters__checkbox_items">
@@ -318,7 +318,7 @@
 
                 </div>
 
-                <div class="filters__checkbox" id="filters__checkbox--gearbox">
+                <div class="filters__checkbox" data-filter="gearbox" id="filters__checkbox--gearbox">
                   <h3 class="filters__checkbox--caption">Коробка передач</h3>
 
                   <div class="filters__checkbox_items">
@@ -345,7 +345,7 @@
 
                 </div>
 
-                <div class="filters__checkbox" id="filters__checkbox--drive">
+                <div class="filters__checkbox" data-filter="drive" id="filters__checkbox--drive">
                   <h3 class="filters__checkbox--caption">Привод</h3>
 
                   <div class="filters__checkbox_items">
@@ -371,7 +371,7 @@
                   </div>
                 </div>
 
-                <div class="filters__checkbox" id="filters__checkbox--fuel">
+                <div class="filters__checkbox" data-filter="fuel" id="filters__checkbox--fuel">
                     <h3 class="filters__checkbox--caption">Топливо</h3>
   
                     <div class="filters__checkbox_items">
@@ -398,7 +398,7 @@
 
                 </div>
 
-                <div class="filters__colors" id="filters__checkbox--color">
+                <div class="filters__colors" data-filter="color" id="filters__checkbox--color">
                   <h3 class="filters__colors--caption">Цвет</h3>
 
                   <div class="filters__colors__wrapper">
@@ -408,8 +408,6 @@
                     <div class="filters__colors--item"></div>
                   </div>
                 </div>
-
-                <a class="filters__show_items hidden" id="filters__show_items">Показать товары</a>
 
             </section>
 
@@ -1046,7 +1044,10 @@
               </div>
 
             </section>
+
           </section>
+
+          <a href="" class="filters__show_items" id="filters__show_items">Показать товары</a>
       </main>
 
       <footer>

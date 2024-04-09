@@ -11,7 +11,8 @@ const filters__header__close = document.getElementById("filters__header__close")
 const filters__header__delete = document.getElementById("filters__header__delete");
 const filters__show_items = document.getElementById("filters__show_items");
 const filters__checkbox_inputs = document.querySelectorAll(".filters__checkbox_input");
-
+let parameters = {};
+filters__show_items.href = window.location.href;
 
 /* Открытие и закрытие бургер меню */
 navbar__adaptive_menuBurger.addEventListener("click", () => {
@@ -32,16 +33,40 @@ $(".filters__range_slider_input").ionRangeSlider({
 });
 
 /* Функционал изменения текста в фильтрах в блоке "Цена" */
+function UrlPriceChange(parameter_value_price_from, parameter_value_price_to) {
+    const parameter_url = `price_from=${parameter_value_price_from}&price_to=${parameter_value_price_to}`.replace(/ /g, "%20");
+
+    let url = window.location.href;
+
+    if (url.indexOf('?') > -1) {
+        url += `&${parameter_url}`
+    } else {
+        url += `?${parameter_url}`
+    }
+
+    window.location.href = url;
+}
+
 function priceChange() {
     const irs_from = document.querySelector(".irs-from");
     const irs_to = document.querySelector(".irs-to");
+    let parameter_value_price_from;
+    let parameter_value_price_to;
+
+    // TODO: реализовать брание из параметров запроса данных для блока Цены
 
     irs_from.addEventListener('DOMSubtreeModified', function () {
         filters__range_slider_min__number.textContent = irs_from.textContent;
+        parameter_value_price_to = encodeURIComponent(irs_to.textContent);
+        parameter_value_price_from = encodeURIComponent(irs_from.textContent);
+        UrlPriceChange(parameter_value_price_from, parameter_value_price_to);
     });
 
     irs_to.addEventListener('DOMSubtreeModified', function () {
         filters__range_slider_max__number.textContent = irs_to.textContent;
+        parameter_value_price_to = encodeURIComponent(irs_to.textContent);
+        parameter_value_price_from = encodeURIComponent(irs_from.textContent);
+        UrlPriceChange(parameter_value_price_from, parameter_value_price_to);
     });
 }
 if (document.readyState !== 'loading') {
@@ -96,42 +121,84 @@ filters__show_items.addEventListener("click", () => {
 
 /* Если в адресной строке есть параметры, то фильтры расставляются в зависимости от значений параметров */
 for (let filter of filters__checkbox_inputs) {
-    const parameter = filter.parentNode.parentNode.parentNode.id.split("--")[1];
+    const parameter = filter.parentNode.parentNode.parentNode.getAttribute("data-filter");
     const parameter_value = encodeURIComponent(filter.getAttribute("value"));
-    const parameter_url = `${parameter}=${parameter_value}`.replace(/ /g, "%20");
     let url = window.location.href;
 
-    if (url.indexOf(parameter_url) >= 0) {
-        filter.click();
+    if (url.indexOf(parameter) >= 0) {
+
+        if (url.lastIndexOf(url.indexOf(parameter), "&") == -1) {
+            past_parameter = url.slice(url.indexOf(parameter), url.length).split("=")[1];
+        } else {
+            past_parameter = url.slice(url.indexOf(parameter), url.lastIndexOf(url.indexOf(parameter), "&")).split("=")[1];
+        }
+
+        past_parameter = past_parameter.split(",");
+        for (let parameter of past_parameter) {
+            if (parameter == parameter_value) {
+                filter.click();
+            }
+        }
+
     }
 };
 
 /* События для определения того, что юзер нажал на инпут с фильтром */
 for (let filter of filters__checkbox_inputs) {
     filter.addEventListener("change", () => {
-        const parameter = filter.parentNode.parentNode.parentNode.id.split("--")[1];
+        const parameter = filter.parentNode.parentNode.parentNode.getAttribute("data-filter");
         const parameter_value = encodeURIComponent(filter.getAttribute("value"));
-        const parameter_url = `${parameter}=${parameter_value}`.replace(/ /g, "%20");
 
-        let url = window.location.href;
+        parameters[parameter] = parameter_value;
+        //const parameter_url = `${parameter}=${parameter_value}`.replace(/ /g, "%20");
 
-        if (url.indexOf(parameter_url) >= 0) {
-            url = url.replace(`&${parameter_url}`, "");
-            url = url.replace(`?${parameter_url}`, "");
-            url = url.split("/")[url.split("/").length - 1]
+        for (let parameter of parameters) {
 
-            if (url[0] == "&") {
-                url = "?" + url;
-            }
+        }
+        let url = filters__show_items.href;
+        console.log(url)
 
+        // url = new URL("http://127.0.0.1:5500/VW-SPB-Catalog/?model=ID.4")
+
+        // if (url.indexOf(parameter) >= 0) {
+
+        //     if (url.lastIndexOf(url.indexOf(parameter), "&") == -1) {
+        //         past_parameter = url.slice(url.indexOf(parameter), url.length);
+        //     } else {
+        //         past_parameter = url.slice(url.indexOf(parameter), url.lastIndexOf(url.indexOf(parameter), "&"));
+        //     }
+
+        //     if (past_parameter.indexOf(parameter_value) >= 0) {
+        //         url = url.replace(past_parameter, past_parameter.replace(parameter_value, "").replace(/,\s*$/, ""))
+        //     } else {
+        //         url = url.replace(past_parameter, past_parameter + "," + parameter_value)
+        //     }
+
+
+        //     if (url[0] == "&") {
+        //         url = "?" + url;
+        //     }
+
+        // } else {
+
+        //     if (url.indexOf('?') > -1) {
+        //         url += `&${parameter_url}`
+        //     } else {
+        //         url += `?${parameter_url}`
+        //     }
+        // }
+
+        // window.location.href = url;
+        if (url.searchParams.has(parameter)) {
+            let new_parameter = `${url.searchParams.get(parameter)},${parameter_value}`
+            console.log(new_parameter)
+            url.searchParams.set(parameter, new_parameter)
         } else {
-            if (url.indexOf('?') > -1) {
-                url += `&${parameter_url}`
-            } else {
-                url += `?${parameter_url}`
-            }
+            url.searchParams.set(parameter, parameter_value)
         }
 
-        window.location.href = url;
+        console.log(url)
+
+        //window.location.href = url;
     })
 };
