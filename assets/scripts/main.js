@@ -34,7 +34,8 @@ $(".filters__range_slider_input").ionRangeSlider({
 
 /* Функционал изменения текста в фильтрах в блоке "Цена" */
 function UrlPriceChange(parameter_value_price_from, parameter_value_price_to) {
-    const parameter_url = `price_from=${parameter_value_price_from}&price_to=${parameter_value_price_to}`.replace(/ /g, "%20");
+    console.log(parameter_value_price_to)
+    const parameter_url = `cost=${parameter_value_price_from},${parameter_value_price_to}`;
 
     let url = filters__show_items.href;
 
@@ -43,29 +44,23 @@ function UrlPriceChange(parameter_value_price_from, parameter_value_price_to) {
     } else {
         url += `?${parameter_url}`
     }
-
-    window.location.href = filters__show_items.href;
+    console.log(url)
+    filters__show_items.href = url;
 }
 
 function priceChange() {
     const irs_from = document.querySelector(".irs-from");
     const irs_to = document.querySelector(".irs-to");
-    let parameter_value_price_from;
-    let parameter_value_price_to;
-
-    // TODO: реализовать брание из параметров запроса данных для блока Цены
+    parameter_value_price_to = irs_to.textContent.trim();
+    parameter_value_price_from = irs_from.textContent.trim();
 
     irs_from.addEventListener('DOMSubtreeModified', function () {
         filters__range_slider_min__number.textContent = irs_from.textContent;
-        parameter_value_price_to = encodeURIComponent(irs_to.textContent);
-        parameter_value_price_from = encodeURIComponent(irs_from.textContent);
         UrlPriceChange(parameter_value_price_from, parameter_value_price_to);
     });
 
     irs_to.addEventListener('DOMSubtreeModified', function () {
         filters__range_slider_max__number.textContent = irs_to.textContent;
-        parameter_value_price_to = encodeURIComponent(irs_to.textContent);
-        parameter_value_price_from = encodeURIComponent(irs_from.textContent);
         UrlPriceChange(parameter_value_price_from, parameter_value_price_to);
     });
 }
@@ -174,8 +169,16 @@ for (let filter of filters__checkbox_inputs) {
         let url = filters__show_items.href;
 
         if (url.indexOf(parameter_value) >= 0) {
-            url = url.replace(`${parameter_value}`, "").replace(/^[,\s]+|[,\s]+$/g, '').replace(/,[,\s]*,/g, ',');
-            filters__show_items.href = url;
+            url = url.replace(`${parameter_value}`, "");
+
+            search_url = new URL(url);
+
+            if (search_url.searchParams.has(parameter) && !search_url.searchParams.get(parameter).replace(/[^\w\s\']|_/g, "").replace(/\s+/g, " ")) {
+                search_url.searchParams.delete(parameter);
+            }
+            console.log(search_url)
+            filters__show_items.href = search_url;
+            return
 
         } else {
             if (url.indexOf('?') > -1) {
