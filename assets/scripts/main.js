@@ -190,58 +190,65 @@ for (let filter of filters__checkbox_inputs) {
                 to: filters__range_slider_max__number.textContent
             });
 
-            /* Функционал изменения текста в фильтрах в блоке "Цена" */
-            function UrlPriceChange(parameter_value_price_from, parameter_value_price_to) {
+        } else {
+            $(".filters__range_slider_input").ionRangeSlider({
+                type: "double",
+                min: 3650000,
+                max: 6745000
+            });
+        }
 
-                const parameter_url = `cost=${parameter_value_price_from},${parameter_value_price_to}`;
+        /* Функционал изменения текста в фильтрах в блоке "Цена" */
+        function UrlPriceChange(parameter_value_price_from, parameter_value_price_to) {
 
-                let url = filters__show_items.href;
+            const parameter_url = `cost=${parameter_value_price_from},${parameter_value_price_to}`;
 
-                if (url.indexOf("cost") >= 0) {
-                    url = url.replace(/(cost=)[^&]*/, parameter_url);
-                    filters__show_items.href = url;
-                    return
-                }
+            let url = filters__show_items.href;
 
-                if (url.indexOf('?') !== -1) {
-                    // Если есть, добавляем новый параметр через "&"
-                    url += '&' + parameter_url;
-                } else {
-                    // Если нет, добавляем новый параметр через "?"
-                    url += '?' + parameter_url;
-                }
-
-
+            if (url.indexOf("cost") >= 0) {
+                url = url.replace(/(cost=)[^&]*/, parameter_url);
                 filters__show_items.href = url;
+                return
             }
 
-            function priceChange() {
-
-                irs_from = document.querySelector(".irs-from");
-                irs_to = document.querySelector(".irs-to");
-
-                irs_from.addEventListener('DOMSubtreeModified', function () {
-                    filters__range_slider_min__number.textContent = irs_from.textContent;
-                    parameter_value_price_to = parseInt(irs_to.textContent.replace(/\s/g, ''), 10);
-                    parameter_value_price_from = parseInt(irs_from.textContent.replace(/\s/g, ''), 10);
-                    UrlPriceChange(parameter_value_price_from, parameter_value_price_to);
-                });
-
-                irs_to.addEventListener('DOMSubtreeModified', function () {
-                    filters__range_slider_max__number.textContent = irs_to.textContent;
-                    parameter_value_price_to = parseInt(irs_to.textContent.replace(/\s/g, ''), 10);
-                    parameter_value_price_from = parseInt(irs_from.textContent.replace(/\s/g, ''), 10);
-                    UrlPriceChange(parameter_value_price_from, parameter_value_price_to);
-                });
-            }
-
-            if (document.readyState !== 'loading') {
-                priceChange()
+            if (url.indexOf('?') !== -1) {
+                // Если есть, добавляем новый параметр через "&"
+                url += '&' + parameter_url;
             } else {
-                document.addEventListener("DOMContentLoaded", () => {
-                    priceChange()
-                })
+                // Если нет, добавляем новый параметр через "?"
+                url += '?' + parameter_url;
             }
+
+
+            filters__show_items.href = url;
+        }
+
+        function priceChange() {
+
+            irs_from = document.querySelector(".irs-from");
+            irs_to = document.querySelector(".irs-to");
+
+            irs_from.addEventListener('DOMSubtreeModified', function () {
+                filters__range_slider_min__number.textContent = irs_from.textContent;
+                parameter_value_price_to = parseInt(irs_to.textContent.replace(/\s/g, ''), 10);
+                parameter_value_price_from = parseInt(irs_from.textContent.replace(/\s/g, ''), 10);
+                UrlPriceChange(parameter_value_price_from, parameter_value_price_to);
+            });
+
+            irs_to.addEventListener('DOMSubtreeModified', function () {
+                filters__range_slider_max__number.textContent = irs_to.textContent;
+                parameter_value_price_to = parseInt(irs_to.textContent.replace(/\s/g, ''), 10);
+                parameter_value_price_from = parseInt(irs_from.textContent.replace(/\s/g, ''), 10);
+                UrlPriceChange(parameter_value_price_from, parameter_value_price_to);
+            });
+        }
+
+        if (document.readyState !== 'loading') {
+            priceChange()
+        } else {
+            document.addEventListener("DOMContentLoaded", () => {
+                priceChange()
+            })
         }
     }
 };
@@ -253,38 +260,41 @@ let parameter_color = "color";
 
 var queryString = url.split('?')[1];
 
-// Разбиваем строку параметров запроса на массив, используя символ "&" как разделитель
-var queryParams = queryString.split('&');
+if (queryString) {
+    // Разбиваем строку параметров запроса на массив, используя символ "&" как разделитель
+    var queryParams = queryString.split('&');
 
-// Создаем объект для хранения параметров
-var params = {};
+    // Создаем объект для хранения параметров
+    var params = {};
 
-// Проходим по массиву параметров запроса
-queryParams.forEach(function (query) {
-    // Разбиваем каждый параметр на ключ и значение, используя символ "=" как разделитель
-    var pair = query.split('=');
-    var key = decodeURIComponent(pair[0]); // декодируем ключ
-    var value = decodeURIComponent(pair[1]); // декодируем значение
-    // Если ключ уже существует, добавляем значение к массиву
-    if (params[key]) {
-        params[key].push(value);
-    } else {
-        // Если ключа еще нет, создаем новый массив с этим значением
-        params[key] = [value];
-    }
-});
+    // Проходим по массиву параметров запроса
+    queryParams.forEach(function (query) {
+        // Разбиваем каждый параметр на ключ и значение, используя символ "=" как разделитель
+        var pair = query.split('=');
+        var key = decodeURIComponent(pair[0]); // декодируем ключ
+        var value = decodeURIComponent(pair[1]); // декодируем значение
+        // Если ключ уже существует, добавляем значение к массиву
+        if (params[key]) {
+            params[key].push(value);
+        } else {
+            // Если ключа еще нет, создаем новый массив с этим значением
+            params[key] = [value];
+        }
+    });
 
-for (let param in params) {
-    let filter_params = params[param][0].split(",");
+    for (let param in params) {
+        let filter_params = params[param][0].split(",");
 
-    for (let item of filters__colors__items) {
-        for (let filter_param of filter_params) {
-            if (item.getAttribute("data-color") == filter_param) {
-                item.classList.toggle("filters__colors--item--active");
+        for (let item of filters__colors__items) {
+            for (let filter_param of filter_params) {
+                if (item.getAttribute("data-color") == filter_param) {
+                    item.classList.toggle("filters__colors--item--active");
+                }
             }
         }
     }
 }
+
 
 /* События для определения того, что юзер нажал на инпут с фильтром */
 for (let filter of filters__checkbox_inputs) {
@@ -296,7 +306,7 @@ for (let filter of filters__checkbox_inputs) {
         let url = filters__show_items.href;
 
         if (url.indexOf(parameter_value) >= 0) {
-            url = url.replace(`${parameter_value}`, "");
+            url = url.replace(new RegExp("[,&]" + parameter_value, "g"), "").replace(parameter_value + ",", "").replace(parameter_value, "");
 
             search_url = new URL(url);
 
@@ -363,7 +373,7 @@ for (let item of filters__colors__items) {
         let url = filters__show_items.href;
 
         if (url.indexOf(parameter_value) >= 0) {
-            url = url.replace(parameter_value, "");
+            url = url.replace(new RegExp("[,&]" + parameter_value, "g"), "").replace(parameter_value + ",", "").replace(parameter_value, "");
 
             search_url = new URL(url);
 
