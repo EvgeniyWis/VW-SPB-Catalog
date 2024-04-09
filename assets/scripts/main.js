@@ -11,8 +11,8 @@ const filters__header__close = document.getElementById("filters__header__close")
 const filters__header__delete = document.getElementById("filters__header__delete");
 const filters__show_items = document.getElementById("filters__show_items");
 const filters__checkbox_inputs = document.querySelectorAll(".filters__checkbox_input");
-let parameters = {};
 filters__show_items.href = window.location.href;
+
 
 /* Открытие и закрытие бургер меню */
 navbar__adaptive_menuBurger.addEventListener("click", () => {
@@ -36,7 +36,7 @@ $(".filters__range_slider_input").ionRangeSlider({
 function UrlPriceChange(parameter_value_price_from, parameter_value_price_to) {
     const parameter_url = `price_from=${parameter_value_price_from}&price_to=${parameter_value_price_to}`.replace(/ /g, "%20");
 
-    let url = window.location.href;
+    let url = filters__show_items.href;
 
     if (url.indexOf('?') > -1) {
         url += `&${parameter_url}`
@@ -44,7 +44,7 @@ function UrlPriceChange(parameter_value_price_from, parameter_value_price_to) {
         url += `?${parameter_url}`
     }
 
-    window.location.href = url;
+    window.location.href = filters__show_items.href;
 }
 
 function priceChange() {
@@ -121,84 +121,103 @@ filters__show_items.addEventListener("click", () => {
 
 /* Если в адресной строке есть параметры, то фильтры расставляются в зависимости от значений параметров */
 for (let filter of filters__checkbox_inputs) {
-    const parameter = filter.parentNode.parentNode.parentNode.getAttribute("data-filter");
-    const parameter_value = encodeURIComponent(filter.getAttribute("value"));
-    let url = window.location.href;
+    const parameter = filter.parentNode.parentNode.parentNode.id.split("--")[1];
+    // const parameter_value = encodeURIComponent(filter.getAttribute("value"));
+    // const parameter_url = `${parameter}=${parameter_value}`.replace(/ /g, "%20");
+    let url = filters__show_items.href;
 
-    if (url.indexOf(parameter) >= 0) {
+    // Получаем часть URL после знака вопроса (включительно), содержащую параметры запроса
+    var queryString = url.split('?')[1];
 
-        if (url.lastIndexOf(url.indexOf(parameter), "&") == -1) {
-            past_parameter = url.slice(url.indexOf(parameter), url.length).split("=")[1];
-        } else {
-            past_parameter = url.slice(url.indexOf(parameter), url.lastIndexOf(url.indexOf(parameter), "&")).split("=")[1];
-        }
+    if (queryString) {
+        // Разбиваем строку параметров запроса на массив, используя символ "&" как разделитель
+        var queryParams = queryString.split('&');
 
-        past_parameter = past_parameter.split(",");
-        for (let parameter of past_parameter) {
-            if (parameter == parameter_value) {
-                filter.click();
+        // Создаем объект для хранения параметров
+        var params = {};
+
+        // Проходим по массиву параметров запроса
+        queryParams.forEach(function (query) {
+            // Разбиваем каждый параметр на ключ и значение, используя символ "=" как разделитель
+            var pair = query.split('=');
+            var key = decodeURIComponent(pair[0]); // декодируем ключ
+            var value = decodeURIComponent(pair[1]); // декодируем значение
+            // Если ключ уже существует, добавляем значение к массиву
+            if (params[key]) {
+                params[key].push(value);
+            } else {
+                // Если ключа еще нет, создаем новый массив с этим значением
+                params[key] = [value];
+            }
+        });
+
+
+        for (let param in params) {
+            let filter_params = params[param][0].split(",");
+
+            for (let filter_param of filter_params) {
+                if (filter.value == filter_param && parameter == param) {
+                    filter.click();
+                }
             }
         }
-
     }
 };
 
 /* События для определения того, что юзер нажал на инпут с фильтром */
 for (let filter of filters__checkbox_inputs) {
     filter.addEventListener("change", () => {
-        const parameter = filter.parentNode.parentNode.parentNode.getAttribute("data-filter");
+        const parameter = filter.parentNode.parentNode.parentNode.id.split("--")[1];
         const parameter_value = encodeURIComponent(filter.getAttribute("value"));
+        const parameter_url = `${parameter}=${parameter_value}`.replace(/ /g, "%20");
 
-        parameters[parameter] = parameter_value;
-        //const parameter_url = `${parameter}=${parameter_value}`.replace(/ /g, "%20");
-
-        for (let parameter of parameters) {
-
-        }
         let url = filters__show_items.href;
-        console.log(url)
 
-        // url = new URL("http://127.0.0.1:5500/VW-SPB-Catalog/?model=ID.4")
+        if (url.indexOf(parameter_value) >= 0) {
+            url = url.replace(`${parameter_value}`, "").replace(/^[,\s]+|[,\s]+$/g, '').replace(/,[,\s]*,/g, ',');
+            filters__show_items.href = url;
 
-        // if (url.indexOf(parameter) >= 0) {
-
-        //     if (url.lastIndexOf(url.indexOf(parameter), "&") == -1) {
-        //         past_parameter = url.slice(url.indexOf(parameter), url.length);
-        //     } else {
-        //         past_parameter = url.slice(url.indexOf(parameter), url.lastIndexOf(url.indexOf(parameter), "&"));
-        //     }
-
-        //     if (past_parameter.indexOf(parameter_value) >= 0) {
-        //         url = url.replace(past_parameter, past_parameter.replace(parameter_value, "").replace(/,\s*$/, ""))
-        //     } else {
-        //         url = url.replace(past_parameter, past_parameter + "," + parameter_value)
-        //     }
-
-
-        //     if (url[0] == "&") {
-        //         url = "?" + url;
-        //     }
-
-        // } else {
-
-        //     if (url.indexOf('?') > -1) {
-        //         url += `&${parameter_url}`
-        //     } else {
-        //         url += `?${parameter_url}`
-        //     }
-        // }
-
-        // window.location.href = url;
-        if (url.searchParams.has(parameter)) {
-            let new_parameter = `${url.searchParams.get(parameter)},${parameter_value}`
-            console.log(new_parameter)
-            url.searchParams.set(parameter, new_parameter)
         } else {
-            url.searchParams.set(parameter, parameter_value)
+            if (url.indexOf('?') > -1) {
+                url += `&${parameter_url}`
+            } else {
+                url += `?${parameter_url}`
+            }
         }
 
-        console.log(url)
+        // Получаем часть URL до знака вопроса (включительно)
+        var baseUrl = url.split('?')[0];
 
-        //window.location.href = url;
+        // Получаем параметры запроса после знака вопроса
+        var params = url.split('?')[1];
+
+        // Разделяем параметры запроса на массив
+        var paramsArray = params.split('&');
+
+        // Объявляем объект для хранения параметров
+        var paramsObject = {};
+
+        // Проходим по массиву параметров
+        paramsArray.forEach(function (param) {
+            var parts = param.split('=');
+            var key = parts[0];
+            var value = parts[1];
+            // Если ключ уже есть в объекте, добавляем значение через запятую
+            if (paramsObject.hasOwnProperty(key)) {
+                paramsObject[key] += ',' + value;
+            } else {
+                paramsObject[key] = value;
+            }
+        });
+
+        // Собираем строку параметров запроса
+        var newParams = Object.entries(paramsObject).map(function (entry) {
+            return entry.join('=');
+        }).join('&');
+
+        // Формируем новый URL
+        var newUrl = baseUrl + '?' + newParams;
+
+        filters__show_items.href = newUrl;
     })
 };

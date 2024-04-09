@@ -558,7 +558,6 @@
      object-position: center center;
 }
 .catalog__items .catalog__item__footer {
-  height: 507px;
   width: 100%;
   padding: 0 16px 16px 16px;
   gap: 16px;
@@ -568,7 +567,6 @@
 @media (max-width: 600px) {
   .catalog__items .catalog__item__footer {
     padding: 0 8px 10px 8px;
-    height: 260px;
   }
 }
 .catalog__items .catalog__item--caption {
