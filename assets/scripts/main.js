@@ -285,12 +285,12 @@ for (let filter of filters__checkbox_inputs) {
                     cross.addEventListener("click", () => {
                         if (cross.parentNode.parentNode == catalog__filters) {
 
-                            for (let filter of filters__checkbox_inputs) {
-                                if (filter.value == item) {
-                                    filter.click();
-                                    break;
-                                }
-                            }
+                            // for (let filter of filters__checkbox_inputs) {
+                            //     if (filter.value == item) {
+                            //         filter.click();
+                            //         break;
+                            //     }
+                            // }
 
                             url = filters__show_items.href;
                             catalog__filters.removeChild(cross.parentNode);
@@ -341,12 +341,12 @@ for (let item of filters__colors__items) {
                     cross.addEventListener("click", () => {
                         if (cross.parentNode.parentNode == catalog__filters) {
 
-                            for (let color of filters__colors__items) {
-                                if (color.getAttribute("data-color") == item) {
-                                    color.click();
-                                    break;
-                                }
-                            }
+                            // for (let color of filters__colors__items) {
+                            //     if (color.getAttribute("data-color") == item) {
+                            //         color.click();
+                            //         break;
+                            //     }
+                            // }
 
                             url = filters__show_items.href;
                             catalog__filters.removeChild(cross.parentNode);
