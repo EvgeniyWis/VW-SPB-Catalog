@@ -224,7 +224,7 @@ for (let filter of filters__checkbox_inputs) {
         }
 
 
-        filters__show_items.href = url;
+        filters__show_items.href = url.replace("%2C", ",");
     }
 
     function priceChange() {
@@ -280,8 +280,10 @@ for (let filter of filters__checkbox_inputs) {
                         if (cross.parentNode.parentNode == catalog__filters) {
                             url = filters__show_items.href;
                             catalog__filters.removeChild(cross.parentNode);
-                            item = encodeURIComponent(item).replace(/%20/g, "+");
-                            url = url.replace(new RegExp("[,&]" + item, "g"), "").replace(item + ",", "").replace(item, "");
+                            item = encodeURIComponent(item);
+                            url = url.replace(new RegExp("[,&]" + item, "g"), "").replace("," + item, "").replace(item + ",", "").replace(item, "");
+                            item = item.replace(/%20/g, "+");
+                            url = url.replace(new RegExp("[,&]" + item, "g"), "").replace("," + item, "").replace(item + ",", "").replace(item, "");
 
                             search_url = new URL(url);
 
@@ -289,7 +291,7 @@ for (let filter of filters__checkbox_inputs) {
                                 search_url.searchParams.delete(parameter);
                             }
 
-                            filters__show_items.href = search_url.href;
+                            filters__show_items.href = search_url.href.replace("%2C", ",");
                         }
                     })
                 }
@@ -324,16 +326,19 @@ for (let item of filters__colors__items) {
                 for (let cross of filters__crosses) {
                     cross.addEventListener("click", () => {
                         if (cross.parentNode.parentNode == catalog__filters) {
+                            url = filters__show_items.href;
                             catalog__filters.removeChild(cross.parentNode);
-                            item = encodeURIComponent(item)
-                            url = url.replace(new RegExp("[,&]" + item, "g"), "").replace(item + ",", "").replace(item, "");
+                            item = encodeURIComponent(item);
+                            url = url.replace(new RegExp("[,&]" + item, "g"), "").replace("," + item, "").replace(item + ",", "").replace(item, "");
+                            item = item.replace(/%20/g, "+");
+                            url = url.replace(new RegExp("[,&]" + item, "g"), "").replace("," + item, "").replace(item + ",", "").replace(item, "");
 
                             search_url = new URL(url);
 
                             if (search_url.searchParams.has(parameter) && !search_url.searchParams.get(parameter).replace(/[^\w\s\']|_/g, "").replace(/\s+/g, " ")) {
                                 search_url.searchParams.delete(parameter);
                             }
-                            filters__show_items.href = search_url.href;
+                            filters__show_items.href = search_url.href.replace("%2C", ",");
                         }
                     })
                 }
