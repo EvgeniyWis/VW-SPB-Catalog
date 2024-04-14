@@ -106,9 +106,8 @@ header nav .navbar__menu {
 }
 header nav .navbar__menu li {
   cursor: pointer;
-  transition: 0.2s ease-in color;
 }
-header nav .navbar__menu li:hover {
+header nav .navbar__menu li:nth-of-type(1) {
   color: var(--dark-blue);
 }
 header nav .navbar__info {

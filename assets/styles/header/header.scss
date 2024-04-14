@@ -107,12 +107,11 @@ header {
                 }
 
                 li {
-                    cursor: pointer;
-                    transition: .2s ease-in color;
-
-                    &:hover {
+                    &:nth-of-type(1) {
                         color: var(--dark-blue);
                     }
+
+                    cursor: pointer;
                 }
             }
 
