@@ -14,6 +14,7 @@ const filters__checkbox_inputs = document.querySelectorAll(".filters__checkbox_i
 const filters__colors__items = document.querySelectorAll(".filters__colors--item");
 const catalog__filters = document.getElementById("catalog__filters");
 const catalog__filters__sort = document.getElementById("catalog__filters__sort");
+const popup__background = document.getElementById("popup__background");
 let irs_from;
 let irs_to;
 filters__show_items.href = window.location.href;
