@@ -30,11 +30,11 @@
   word-spacing: 10px;
   max-width: 100%;
   position: relative;
-  left: 13.5%;
+  padding: 0px 250px;
 }
-@media (max-width: 600px) {
+@media (max-width: 1600px) {
   .main_screen .breadcrumbs {
-    left: 3%;
+    padding: 0 20px;
   }
 }
 .main_screen--caption {
@@ -58,14 +58,9 @@
   width: 100%;
   margin-top: 50px;
 }
-@media (max-width: 1300px) {
+@media (max-width: 1600px) {
   .catalog {
-    padding: 0 100px;
-  }
-}
-@media (max-width: 1200px) {
-  .catalog {
-    padding: 0 30px;
+    padding: 0 20px;
   }
 }
 @media (max-width: 1100px) {
@@ -87,6 +82,11 @@
   flex-direction: column;
   height: 100%;
   width: 35%;
+}
+@media (max-width: 1400px) {
+  .catalog .filters {
+    width: 20%;
+  }
 }
 .catalog .filters__header {
   display: none;
@@ -236,6 +236,11 @@
   color: var(--white);
   margin: 50px auto;
 }
+@media (max-width: 1400px) {
+  .filters__show_items {
+    width: 200px;
+  }
+}
 
 /* Стили для input range блока "Цена" */
 .irs--flat {
@@ -361,7 +366,8 @@
 /* Каталог */
 .catalog_wrapper {
   margin-left: 30px;
-  width: 100%;
+  min-width: 980px;
+  max-width: 980px;
   /* Селект и выбранные фильтры */
   /* Кастомный селект */
   /* Выбранные фильтры */
@@ -369,6 +375,9 @@
 @media (max-width: 1100px) {
   .catalog_wrapper {
     margin-left: 0;
+    min-width: 0;
+    max-width: none;
+    width: 100%;
   }
 }
 .catalog_wrapper .catalog__header {
@@ -376,6 +385,11 @@
   justify-content: space-between;
   width: 100%;
   min-height: 50px;
+}
+@media (max-width: 1300px) and (min-width: 1100px) {
+  .catalog_wrapper .catalog__header {
+    width: 85%;
+  }
 }
 @media (max-width: 1100px) {
   .catalog_wrapper .catalog__header {
@@ -459,6 +473,12 @@
   margin-top: 15px;
   gap: 20px;
   width: 100%;
+}
+@media (max-width: 1300px) and (min-width: 1100px) {
+  .catalog__items {
+    gap: 5px;
+    width: 85%;
+  }
 }
 @media (max-width: 800px) {
   .catalog__items {
