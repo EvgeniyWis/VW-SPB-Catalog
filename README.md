@@ -9,6 +9,6 @@
    1. Склонируйте данный репозиторий.
    2. Откройте файл ```index.html```
    
-Или вы можете просто зайти на [сайт](kriswis.github.io/VW-SPB-Catalog/), загруженный на Github Pages.
+Или вы можете просто зайти на [сайт](https://evgeniywis.github.io/VW-SPB-Catalog/), загруженный на Github Pages.
 # Макет:
 ![Catalog](https://github.com/KrisWis/VW-SPB-Catalog/assets/94256853/1e583e8a-5383-4464-9a92-951e5614e89b)
